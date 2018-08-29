@@ -18,7 +18,9 @@ body {
   font-family: 'Ubuntu', sans-serif;
   background-color: #c7d2db;
   height:100%;
+  width: 100%;
   text-align: center;
+  display: inline-block;
 }
 
 button {
@@ -530,9 +532,20 @@ p {
 } 
 
 .Gallery-div {
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
   padding-bottom: 30px; 
+
+}
+
+.galpg {
+  overflow: hidden;
+}
+
+.ReactGridGallery {
+
+  width: 75%; 
+  margin: 0 auto;
 }
 
 .gallery-tag-button {
@@ -548,6 +561,10 @@ p {
 
 .gallery-pages {
   padding-bottom: 20px; 
+}
+
+.footer { 
+  width: 100%;
 }
 
 @keyframes App-logo-spin {

@@ -17,14 +17,15 @@ import './App.css';
 import './common/header.css';
 import {Header, Footer} from './common/header.js'
 
-import Gallery from 'react-photo-gallery';
+import Gallery from 'react-grid-gallery';
  
 class App extends Component {
   constructor(props) {
     super(props); 
 
     this.state = { currentPage: "1", page1Style:"clickedButton",
-    page2Style:"", page3Style:""};
+    page2Style:"", page3Style:"", isHiddenPage1: false, 
+    isHiddenPage2: true, isHiddenPage3: true,};
 
     this.onPage1Click= this.onPage1Click.bind(this)
     this.onPage2Click= this.onPage2Click.bind(this)
@@ -33,17 +34,20 @@ class App extends Component {
 
   onPage1Click() { 
     this.setState({currentPage: "1", page1Style:"clickedButton",
-    page2Style:"", page3Style:""});
+    page2Style:"", page3Style:"", isHiddenPage1: false, 
+    isHiddenPage2: true, isHiddenPage3: true, });
   }
 
   onPage2Click() { 
     this.setState({currentPage: "2", page1Style:"",
-    page2Style:"clickedButton", page3Style:""});
+    page2Style:"clickedButton", page3Style:"", isHiddenPage1: true, 
+    isHiddenPage2: false, isHiddenPage3: true,});
   }
 
   onPage3Click() { 
     this.setState({currentPage: "3", page1Style:"",
-    page2Style:"", page3Style:"clickedButton"});
+    page2Style:"", page3Style:"clickedButton", isHiddenPage1: true, 
+    isHiddenPage2: true, isHiddenPage3: false,});
   }
 
   isHidden(no) {
@@ -56,6 +60,8 @@ class App extends Component {
   }
 
   render() {
+    // var layoutGeometry_1 = require('justified-layout')({sizes_1});
+
     return (
       <div className="App">
         <Header/>
@@ -70,14 +76,14 @@ class App extends Component {
             <button className={ "gallery-tag-button " + this.state.page3Style} onClick={this.onPage3Click} > 3 </button> 
         </div> 
         <div className="Gallery-div">
-          <div className="page_1" hidden={this.isHidden(1)} >
-            <Gallery photos={PHOTOSET_1} />
+          <div className="page_1 galpg" hidden={this.state.isHiddenPage1} >
+            <Gallery images={PHOTOSET_1} enableImageSelection={false} enableLightbox={false} />
           </div>
-          <div className="page_2" hidden={this.isHidden(2)}>
-            <Gallery photos={PHOTOSET_2} />
+          <div className="page_2 galpg" hidden={this.state.isHiddenPage2}>
+            <Gallery images={PHOTOSET_2} enableImageSelection={false} enableLightbox={false} />
           </div>
-          <div className="page_3" hidden={this.isHidden(3)}>
-            <Gallery photos={PHOTOSET_3} />
+          <div className="page_3 galpg" hidden={this.state.isHiddenPage3}>
+            <Gallery images={PHOTOSET_3} enableImageSelection={false} enableLightbox={false} />
           </div>
         </div>
         <div className="gallery-pages" >
@@ -93,152 +99,319 @@ class App extends Component {
 
 const PHOTOSET_1 = [{
   src: require('./gallery_photos/35.jpg'),
-  width: 6,
-  height: 8
+  thumbnail: require('./gallery_photos/35.jpg'),
+  thumbnailWidth: 195,
+  thumbnailHeight: 260,
+  
 },{
   src: require('./gallery_photos/34.jpeg'),
-  width: 37,
-  height: 28
+  thumbnail:require('./gallery_photos/34.jpeg'),
+  thumbnailHeight: 120,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/33.jpg'),
-  width: 19,
-  height: 15
+  thumbnail:require('./gallery_photos/33.jpg'),
+  thumbnailHeight: 130,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/32.jpg'),
-  width: 6,
-  height: 5
+  thumbnail:require('./gallery_photos/32.jpg'),
+  thumbnailHeight: 120,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/31.jpg'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/31.jpg'),
+  thumbnailHeight: 120, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/30.jpg'),
-  width: 6,
-  height: 8
+  thumbnail:require('./gallery_photos/30.jpg'),
+  thumbnailHeight: 210, 
+  thumbnailWidth:160
 }, {
   src: require('./gallery_photos/29.jpg'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/29.jpg'),
+  thumbnailHeight: 120, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/28.jpg'),
-  width: 3,
-  height: 2
+  thumbnail:require('./gallery_photos/28.jpg'),
+  thumbnailHeight: 110, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/27.jpg'),
-  width: 6,
-  height: 8
+  thumbnail:require('./gallery_photos/27.jpg'),
+  thumbnailHeight: 210,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/26.jpg'),
-  width: 6,
-  height: 8
+  thumbnail:require('./gallery_photos/26.jpg'),
+  thumbnailHeight: 210,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/25.jpg'),
-  width: 8,
-  height: 5
+  thumbnail:require('./gallery_photos/25.jpg'),
+  thumbnailHeight: 100,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/24.jpg'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/24.jpg'),
+  thumbnailHeight: 130, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/23.png'),
-  width: 4,
-  height: 3
+  thumbnail: require('./gallery_photos/23.png'),
+  thumbnailHeight: 120,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/22.png'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/22.png'),
+  thumbnailHeight: 120,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/21.png'),
-  width: 4,
-  height: 3
-}];
+  thumbnail:require('./gallery_photos/21.png'),
+  thumbnailHeight: 120,
+  thumbnailWidth:160
+}, {
+  src: require('./gallery_photos/20.png'),
+  thumbnail:require('./gallery_photos/20.png'),
+  thumbnailHeight: 148,
+  thumbnailWidth:160
+},];
 
 const PHOTOSET_2 = [{
-  src: require('./gallery_photos/20.png'),
-  width: 1,
-  height: 1
-},{
   src: require('./gallery_photos/19.png'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/19.png'),
+  thumbnailHeight: 120, 
+  thumbnailWidth:160
 }, {
   src: require('./gallery_photos/18.png'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/18.png'),
+  thumbnailHeight: 90, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/17.png'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/17.png'),
+  thumbnailHeight: 120,
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/16.png'),
-  width: 8,
-  height: 5
+  thumbnail:require('./gallery_photos/16.png'),
+  thumbnailHeight: 90, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/15.png'),
-  width: 8,
-  height: 5
+  thumbnail:require('./gallery_photos/15.png'),
+  thumbnailHeight: 90, 
+  thumbnailWidth:160
 }, {
   src: require('./gallery_photos/14.png'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/14.png'),
+  thumbnailHeight: 130, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/13.png'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/13.png'),
+  thumbnailHeight: 110, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/12.jpg'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/12.jpg'),
+  thumbnailHeight: 120, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/11.jpg'),
-  width: 4,
-  height: 3
+  thumbnail:require('./gallery_photos/11.jpg'),
+  thumbnailHeight: 120, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/10.jpg'),
-  width: 1,
-  height: 1
+  thumbnail:require('./gallery_photos/10.jpg'),
+  thumbnailHeight: 160, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/9.jpg'),
-  width: 7,
-  height: 5
+  thumbnail:require('./gallery_photos/9.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/8.jpg'),
-  width: 7,
-  height: 5
+  thumbnail: require('./gallery_photos/8.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/7.jpg'),
-  width: 7,
-  height: 5
-},{
-  src: require('./gallery_photos/6.jpg'),
-  width: 7,
-  height: 5
-}]; 
+  thumbnail:require('./gallery_photos/7.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
+}
+]; 
 
-const PHOTOSET_3 = [{
-  src: require('./gallery_photos/5.jpg'),
-  width: 7,
-  height: 5
+const PHOTOSET_3 = [
+  {
+    src: require('./gallery_photos/6.jpg'),
+    thumbnail:require('./gallery_photos/6.jpg'),
+    thumbnailHeight: 105, 
+    thumbnailWidth:160
+  }, 
+  {src: require('./gallery_photos/5.jpg'),
+thumbnail:require('./gallery_photos/5.jpg'),
+thumbnailHeight: 105, 
+thumbnailWidth:160
 }, {
   src: require('./gallery_photos/4.jpg'),
-  width: 7,
-  height: 5
-},{
+  thumbnail:require('./gallery_photos/4.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
+  },{
   src: require('./gallery_photos/3.jpg'),
-  width: 7,
-  height: 5
+  thumbnail:require('./gallery_photos/3.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/2.jpg'),
-  width: 7,
-  height: 5
+  thumbnail:require('./gallery_photos/2.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/1.jpg'),
-  width: 7,
-  height: 5
+  thumbnail:require('./gallery_photos/1.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
 },{
   src: require('./gallery_photos/0.jpg'),
-  width: 7,
-  height: 5
+  thumbnail:require('./gallery_photos/0.jpg'),
+  thumbnailHeight: 105, 
+  thumbnailWidth:160
 }]; 
+
+// const sizes_1 = [{
+//   width: 160,
+//   height: 260 },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 130
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 210
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 110
+// },{
+//   width: 160,
+//   height: 210
+// },{
+//   width: 160,
+//   height: 210
+// },{
+//   width: 160,
+//   height: 100
+// },{
+//   width: 160,
+//   height: 130
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// }]
+
+// const sizes_2 =[]
+
+// const sizes_3 = [{
+//   width: 160,
+//   height: 110
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 130
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 110
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 130
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 110
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 130
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 110
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 130
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 110
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 130
+// },{
+//   width: 160,
+//   height: 120
+// },{
+//   width: 160,
+//   height: 110
+// },]
 
 export default App;
