@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://carmen52.github.io/gwc-gallery",
   "dependencies": {
+    "gh-pages": "^1.2.0",
     "justified-layout": "^2.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
